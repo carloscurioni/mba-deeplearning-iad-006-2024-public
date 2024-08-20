@@ -1,0 +1,20 @@
+# Use uma imagem base do Python
+FROM python:3.10-slim
+
+# Definir o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copiar o arquivo de requisitos para o diretório de trabalho
+COPY requirements.txt .
+
+# Instalar as dependências
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar todos os arquivos do projeto para o diretório de trabalho
+COPY . .
+
+# Expor a porta na qual o serviço vai rodar
+EXPOSE 5000
+
+# Comando para rodar o servidor ou script de inferência
+CMD ["python", "app.py"]
