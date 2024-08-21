@@ -1,20 +1,20 @@
-# Use uma imagem base do Python
-FROM python:3.10-slim
+# Use an official Python image as the base
+FROM python:3.9-slim
 
-# Definir o diretório de trabalho dentro do container
+# Set the working directory to /app
 WORKDIR /app
 
-# Copiar o arquivo de requisitos para o diretório de trabalho
+# Copy the requirements file
 COPY requirements.txt .
 
-# Instalar as dependências
+# Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar todos os arquivos do projeto para o diretório de trabalho
-COPY . .
+# Copy the application code
+COPY . /app/
 
-# Expor a porta na qual o serviço vai rodar
-EXPOSE 5000
+# Expose the port
+EXPOSE 8000
 
-# Comando para rodar o servidor ou script de inferência
-CMD ["python", "app.py"]
+# Run the command to start the development server
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
